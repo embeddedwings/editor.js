@@ -19,6 +19,7 @@ export default class BlocksAPI extends Module {
       clear: (): void => this.clear(),
       render: (data: OutputData): Promise<void> => this.render(data),
       renderFromHTML: (data: string): Promise<void> => this.renderFromHTML(data),
+      reload: (data: OutputData): Promise<void> => this.reload(data),
       delete: (index?: number): void => this.delete(index),
       swap: (fromIndex: number, toIndex: number): void => this.swap(fromIndex, toIndex),
       move: (toIndex: number, fromIndex?: number): void => this.move(toIndex, fromIndex),
@@ -166,6 +167,39 @@ export default class BlocksAPI extends Module {
     this.Editor.BlockManager.clear();
 
     return this.Editor.Paste.processText(data, true);
+  }
+
+  /**
+   * Reload from raw data
+   *
+   * @param {OutputData} data — Saved Editor data
+   */
+  public reload(data: OutputData): Promise<void> {
+    if (typeof this?.Editor?.BlockManager?.blocks?.length !== 'number' || typeof data?.blocks?.length !== 'number') {
+      return;
+    }
+    for (let i = 0; i < data.blocks.length; i++) {
+      const name = this.Editor.BlockManager.blocks[i]?.name;
+      const type = data.blocks[i].type;
+      if (name === type) {
+        if (this.Editor.BlockManager.blocks[i].tool.reload) {
+          this.Editor.BlockManager.blocks[i].tool.reload(data.blocks[i]);
+        }
+      } else {
+        const fromIndex = this.Editor.BlockManager.blocks.findIndex((block, j) => j > i && block?.name === type);
+        if (fromIndex >= 0) {
+          this.move(i, fromIndex);
+          this.Editor.BlockManager.blocks[i].tool.reload(data.blocks[i]);
+        } else {
+          this.insert(data.blocks[i].type, data.blocks[i].data, undefined, i, false);
+        }
+      }
+    }
+    const deleteCount = this.Editor.BlockManager.blocks.length - data.blocks.length;
+    for (let i = 0; i < deleteCount; i++) {
+      this.delete(data.blocks.length);
+    }
+    return;
   }
 
   /**

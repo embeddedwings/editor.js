@@ -28,6 +28,15 @@ export interface Blocks {
   renderFromHTML(data: string): Promise<void>;
 
   /**
+   * reload passed data
+   *
+   * @param {OutputData} data - saved Block data
+   *
+   * @returns {Promise<void>}
+   */
+  reload(data: OutputData): Promise<void>;
+
+   /**
    * Removes current Block
    * @param {number} index - index of a block to delete
    */
