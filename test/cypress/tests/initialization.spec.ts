@@ -9,7 +9,7 @@ describe('Editor basic initialization', () => {
     const editorConfig = {};
 
     beforeEach(() => {
-      if (this.editorInstance) {
+      if (this && this.editorInstance) {
         this.editorInstance.destroy();
       } else {
         cy.createEditor(editorConfig).as('editorInstance');
@@ -17,14 +17,12 @@ describe('Editor basic initialization', () => {
     });
 
     it('should create a visible UI', () => {
-      cy.window().then((window) => {
-        /**
-         * Assert if created instance is visible or not.
-         */
-        cy.get('[data-cy=editorjs]')
-          .get('div.codex-editor')
-          .should('be.visible');
-      });
+      /**
+       * Assert if created instance is visible or not.
+       */
+      cy.get('[data-cy=editorjs]')
+        .get('div.codex-editor')
+        .should('be.visible');
     });
   });
 });

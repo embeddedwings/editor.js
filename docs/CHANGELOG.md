@@ -1,16 +1,64 @@
 # Changelog
 
+### 2.21.0
+
+- `New` - Blocks now have unique ids [#873](https://github.com/codex-team/editor.js/issues/873)
+
+### 2.20.2
+
+- `Fix` — Append default Tunes if user tunes are provided for Block Tool [#1640](https://github.com/codex-team/editor.js/issues/1640)
+- `Fix` - Prevent the leak of codex-tooltip when Editor.js is destroyed [#1475](https://github.com/codex-team/editor.js/issues/1475).
+- `Refactoring` - Notifier module now is a util.
+
+### 2.20.1
+
+- `Fix` - Create a new block when clicked at the bottom [#1588](https://github.com/codex-team/editor.js/issues/1588).
+- `Fix` — Fix sanitisation problem with Inline Tools [#1631](https://github.com/codex-team/editor.js/issues/1631)
+- `Fix` — Fix copy in FireFox [1625](https://github.com/codex-team/editor.js/issues/1625)
+- `Refactoring` - The Sanitizer module is util now.
+- `Refactoring` - Tooltip module is util now.
+- `Refactoring` — Refactoring based on LGTM [#1577](https://github.com/codex-team/editor.js/issues/1577).
+- `Refactoring` — Refactoring based on ESLint [#1636](https://github.com/codex-team/editor.js/issues/1636).
+
+### 2.20.0
+
+- `New` — [Block Tunes API](block-tunes.md) added
+
+### 2.19.3
+
+- `Fix` — Ignore error raised by Shortcut module
+
+### 2.19.2
+
+- `New` - `toolbar.toggleBlockSettings()` API method added [#1442](https://github.com/codex-team/editor.js/issues/1421).
+- `Improvements` - A generic type for Tool config added [#1516](https://github.com/codex-team/editor.js/issues/1516)
+- `Improvements` - Remove unused `force` option in `Caret.navigateNext()` and `Caret.navigatePrevious()` [#857](https://github.com/codex-team/editor.js/issues/857#issuecomment-770363438).
+- `Improvements` - Remove bundles from the repo [#1541](https://github.com/codex-team/editor.js/pull/1541).
+- `Improvements` - Document will be scrolled when blocks are selected with `SHIFT+UP` or `SHIFT+DOWN` [#1447](https://github.com/codex-team/editor.js/issues/1447)
+- `Improvements` - The caret will be set on editor copy/paste [#1470](https://github.com/codex-team/editor.js/pull/1470)
+- `Improvements` - Added generic types to OutputBlockData [#1551](https://github.com/codex-team/editor.js/issues/1551).
+- `Fix` - Fix BlockManager.setCurrentBlockByChildNode() with multiple Editor.js instances [#1503](https://github.com/codex-team/editor.js/issues/1503).
+- `Fix` - Fix an unstable block cut process [#1489](https://github.com/codex-team/editor.js/issues/1489).
+- `Fix` - Type definition of the Sanitizer config: the sanitize function now contains param definition [#1491](https://github.com/codex-team/editor.js/pull/1491).
+- `Fix` - Fix unexpected behavior on an empty link pasting [#1348](https://github.com/codex-team/editor.js/issues/1348).
+- `Fix` - Fix SanitizerConfig type definition [#1513](https://github.com/codex-team/editor.js/issues/1513)
+- `Refactoring` - The Listeners module now is a util.
+- `Refactoring` - The Events module now is a util.
+- `Fix` - Editor Config now immutable [#1552](https://github.com/codex-team/editor.js/issues/1552).
+- `Refactoring` - Shortcuts module is util now.
+- `Fix` - Fix bubbling on BlockManagers' listener [#1433](https://github.com/codex-team/editor.js/issues/1433).
+
+
 ### 2.19.1
 
 - `Improvements` - The [Cypress](https://www.cypress.io) was integrated as the end-to-end testing framework
 - `Improvements` - Native `typeof`replaced with custom utils methods
-- `Improvements` - Bind shortcuts listeners on the editor wrapper instead of document (#1391)(https://github.com/codex-team/editor.js/issues/1391)
+- `Improvements` - Bind shortcuts listeners on the editor wrapper instead of document [#1391](https://github.com/codex-team/editor.js/issues/1391)
 - `Fix` - The problem with destroy() method [#1380](https://github.com/codex-team/editor.js/issues/1380).
 - `Fix` - add getter keyword to `block.mergeable` method [#1415](https://github.com/codex-team/editor.js/issues/1415).
 - `Fix` — Fix problem with entering to Editor.js by Tab key [#1393](https://github.com/codex-team/editor.js/issues/1393)
 - `Fix` - Sanitize pasted block data [#1396](https://github.com/codex-team/editor.js/issues/1396).
 - `Fix` - Unnecessary block creation after arrow navigation at last non-default block[#1414](https://github.com/codex-team/editor.js/issues/1414)
-
 
 ### 2.19
 

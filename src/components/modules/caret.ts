@@ -333,7 +333,7 @@ export default class Caret extends Module {
      * If last block is empty and it is an defaultBlock, set to that.
      * Otherwise, append new empty block and set to that
      */
-    if (this.Editor.Tools.isDefault(lastBlock.tool) && lastBlock.isEmpty) {
+    if (lastBlock.tool.isDefault && lastBlock.isEmpty) {
       this.setToBlock(lastBlock);
     } else {
       const newBlock = this.Editor.BlockManager.insertAtEnd();
@@ -388,12 +388,10 @@ export default class Caret extends Module {
    * Before moving caret, we should check if caret position is at the end of Plugins node
    * Using {@link Dom#getDeepestNode} to get a last node and match with current selection
    *
-   * @param {boolean} force - force navigation even if caret is not at the end
-   *
    * @returns {boolean}
    */
-  public navigateNext(force = false): boolean {
-    const { BlockManager, Tools } = this.Editor;
+  public navigateNext(): boolean {
+    const { BlockManager } = this.Editor;
     const { currentBlock, nextContentfulBlock } = BlockManager;
     const { nextInput } = currentBlock;
     const isAtEnd = this.isAtEnd;
@@ -411,7 +409,7 @@ export default class Caret extends Module {
        * 2. If there is a last block and it is non-default --> and caret not at the end <--, do nothing
        *    (https://github.com/codex-team/editor.js/issues/1414)
        */
-      if (Tools.isDefault(currentBlock.tool) || !isAtEnd) {
+      if (currentBlock.tool.isDefault || !isAtEnd) {
         return false;
       }
 
@@ -422,7 +420,7 @@ export default class Caret extends Module {
       nextBlock = BlockManager.insertAtEnd();
     }
 
-    if (force || isAtEnd) {
+    if (isAtEnd) {
       /** If next Tool`s input exists, focus on it. Otherwise set caret to the next Block */
       if (!nextInput) {
         this.setToBlock(nextBlock, this.positions.START);
@@ -441,11 +439,9 @@ export default class Caret extends Module {
    * Before moving caret, we should check if caret position is start of the Plugins node
    * Using {@link Dom#getDeepestNode} to get a last node and match with current selection
    *
-   * @param {boolean} force - force navigation even if caret is not at the start
-   *
    * @returns {boolean}
    */
-  public navigatePrevious(force = false): boolean {
+  public navigatePrevious(): boolean {
     const { currentBlock, previousContentfulBlock } = this.Editor.BlockManager;
 
     if (!currentBlock) {
@@ -458,7 +454,7 @@ export default class Caret extends Module {
       return false;
     }
 
-    if (force || this.isAtStart) {
+    if (this.isAtStart) {
       /** If previous Tool`s input exists, focus on it. Otherwise set caret to the previous Block */
       if (!previousInput) {
         this.setToBlock(previousContentfulBlock, this.positions.END);
@@ -535,7 +531,7 @@ export default class Caret extends Module {
      * If there is no child node, append empty one
      */
     if (fragment.childNodes.length === 0) {
-      fragment.appendChild(new Text(''));
+      fragment.appendChild(new Text());
     }
 
     const lastChild = fragment.lastChild;
