@@ -389,6 +389,10 @@ export default class Dom {
       return false;
     }
 
+    if (node.nodeName === '#comment') {
+      return true;
+    }
+
     if (this.isElement(node) && this.isNativeInput(node)) {
       nodeText = (node as HTMLInputElement).value;
     } else {
